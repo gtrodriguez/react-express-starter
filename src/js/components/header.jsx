@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Nav, Navbar, NavItem } from 'react-bootstrap';
-import RouteNavItem from './routenavitem';
-
 class Header extends React.Component {
   render() {
     return (<div>

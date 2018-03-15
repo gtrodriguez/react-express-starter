@@ -8,8 +8,8 @@ class TodoList extends React.Component {
   render() {
     return (<ListGroup componentClass="ul">
       {
-        this.props.todoList.map(item)=>(
-          <ToDoItem
+        this.props.todoItems.map((item) => {
+          return <ToDoItem
             id={item.id}
             listId={item.listId}
             title={item.title}
@@ -20,7 +20,7 @@ class TodoList extends React.Component {
             handleItemUpdate={this.props.handleItemUpdate}
             handleCancel={this.props.handleCancel}
             handleSelectActiveItem={this.props.handleSelectActiveItem}
-          />)
+          />})
       }
       </ListGroup>);
   }
@@ -28,7 +28,7 @@ class TodoList extends React.Component {
 
 TodoList.propTypes = {
   activeItemId: PropTypes.string,
-  todoList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  todoItems: PropTypes.arrayOf(PropTypes.object).isRequired,
   handleItemUpdate: PropTypes.func.isRequired,
   handleCancel: PropTypes.func.isRequired,
   handleSelectActiveItem: PropTypes.func.isRequired,

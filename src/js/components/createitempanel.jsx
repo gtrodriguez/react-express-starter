@@ -19,7 +19,11 @@ class CreateItemPanel extends React.Component {
 
   renderButtonPanel() {
     return <div>
-      <Button onClick={(e) => {e.preventDefault(); this.props.handleCreateFormStatus(true);}}/>
+      <Button
+        onClick={(e) => {e.preventDefault(); this.props.handleCreateFormStatus(true);}}
+      >
+        Add New Item
+      </Button>
     </div>;
   }
 
@@ -27,7 +31,7 @@ class CreateItemPanel extends React.Component {
     return (
       <div className="create-item-panel">
         {
-            isAddingNew ? this.renderAddingContent() : this.renderButtonPanel()  
+            this.props.isAddingNew ? this.renderAddingContent() : this.renderButtonPanel()  
         }
       </div>);
   }

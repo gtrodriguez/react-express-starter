@@ -10,8 +10,6 @@ import CreateItemPanel from '../components/createitempanel';
 class Landing extends React.Component {
   constructor(props) {
     super(props);
-
-    this.renderGameColumn = this.renderGameColumn.bind(this);
   }
 
   componentDidMount() {
@@ -19,8 +17,12 @@ class Landing extends React.Component {
 
   render() {
     return (<div id="connectx-root" className="landing-page">
-      <h2 className="title">Welcome to our To Do List!</h2>
       <Grid id="game-container">
+        <Row>
+          <Col sm={12}>
+            <h2 className="title">Welcome to our To Do List!</h2>
+          </Col>
+        </Row>
         <Row>
           <Col sm={12}>
             <CreateItemPanel

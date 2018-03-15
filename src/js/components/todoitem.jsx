@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import { Form, FormControl, FormGroup, ControlLabel, HelpBlock } from 'react-bootstrap';
+import { Form, FormControl, Button, FormGroup, ControlLabel, HelpBlock, Checkbox } from 'react-bootstrap';
 
 class ToDoItem extends React.Component {
-  interactiveTitleClassName() {
-    if (this.props.enabled()) {
-      return 'interactive-tile';
+  toDoItemClassName() {
+    if (this.props.isActive) {
+      return 'todo-item active';
     }
-
-    return 'interactive-tile disabled';
+    return 'todo-item';
   }
 
   renderActiveContent() {
@@ -34,6 +32,13 @@ class ToDoItem extends React.Component {
             placeholder="Enter Description"
           />
         </FormGroup>
+        <FormGroup
+          controlId="isCompleted"
+        >
+          <Checkbox
+            checked={this.props.isCompleted}
+          />
+        </FormGroup>
         <FormControl
           type="hidden"
           id="id"
@@ -43,11 +48,6 @@ class ToDoItem extends React.Component {
           type="hidden"
           id="listId"
           value={this.props.listId}
-        />
-        <FormControl
-          type="hidden"
-          id="isCompleted"
-          value={this.props.isCompleted}
         />
         <FormControl
           type="hidden"
@@ -61,22 +61,27 @@ class ToDoItem extends React.Component {
 
   renderDescription() {
     if (this.props.description) {
-      return <p>{this.props.description}</p>;
+      return <p><pre>{this.props.description}</pre></p>;
     }
   }
 
   renderInActiveContent() {
-    return (<div onClick={this.props.handleSelectActiveItem(this.props.id)}>
+    return (<div
+        className={this.toDoItemClassName()}
+        onClick={e => {e.preventDefault();this.props.handleSelectActiveItem(this.props.id);}}>
       <h4>{this.props.title}</h4>
       {this.renderDescription()}
-      <div><label>Last Updated</label>&nbsp;{this.props.lastUpdated}</div>
+      <div>
+        <label>Last Updated</label>
+        &nbsp;{this.props.lastUpdated}
+      </div>
     </div>);
   }
 
   render() {
     return (<li className="list-group-item">
     {
-      this.props.isActive ?  this.renderInActiveContent() : this.renderActiveContent()
+      this.props.isActive ?  this.renderActiveContent() : this.renderInActiveContent()
     }
     </li>);
   }

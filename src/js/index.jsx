@@ -16,17 +16,17 @@ class App extends React.Component {
         id: 1,
         listId: 1,
         title: 'Get Groceries',
-        description: 'Get Milk\n Get Sugar\n Get Eggs\n Get Flour\n',
+        description: 'Get Milk\nGet Sugar\nGet Eggs\nGet Flour\n',
         isCompleted: true,
-        lastUpdated: new Date(),
+        lastUpdated: new Date().toString(),
       },
       {
         id: 2,
         listId: 1,
         title: 'Do taxes',
-        description: 'Get Documents\n Go to H&R Block',
+        description: 'Get Documents\nGo to H&R Block',
         isCompleted: false,
-        lastUpdated: new Date(),
+        lastUpdated: new Date().toString(),
       },
       {
         id: 3,
@@ -34,7 +34,7 @@ class App extends React.Component {
         title: 'Change oil',
         description: '',
         isCompleted: false,
-        lastUpdated: new Date(),
+        lastUpdated: new Date().toString(),
       }],
     };
 
@@ -49,47 +49,41 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    //called after everything including sub-components have rendered
   }
 
   componentWillUnmount() {
   }
 
-  handleCreateFormStatus() {
+  handleCreateFormStatus(isAddingNew) {
     this.setState({
-      gameInstance: newGameInstance
+      isAddingNew: isAddingNew
     });
   }
 
-  handleItemUpdate() {
+  handleItemUpdate(itemId,item) {
+    const newItems = this.state.todoItems.find(item => item.id === itemId) = item;
     this.setState({
-      gameInstance: newGameInstance
+      todoItems: newItems
     });
   }
 
-  handleSelectActiveItem() {
+  handleSelectActiveItem(activeItemId) {
     this.setState({
-      gameInstance: newGameInstance
+      activeItemId: activeItemId
     });
   }
 
   render() {
     return (
-      <BrowserRouter>
-        <div className="app">
-          <Header/>
-          <Switch>
-            <Route exact path="/:inviteGameId?"
-              render = {({ history, match }) => (<Landing
-                activeItemId={this.state.activeItemId},
-                isAddingNew={this.state.isAddingNew},
-                todoItems={this.state.todoItems},
-                handleCreateFormStatus={this.handleCreateFormStatus},
-                handleItemUpdate={this.handleItemUpdate},
-                handleSelectActiveItem={this.handleSelectActiveItem},
-              />)} />
-          </Switch>
-        </div>
-      </BrowserRouter>
+      <Landing
+        activeItemId={this.state.activeItemId}
+        isAddingNew={this.state.isAddingNew}
+        todoItems={this.state.todoItems}
+        handleCreateFormStatus={this.handleCreateFormStatus}
+        handleItemUpdate={this.handleItemUpdate}
+        handleSelectActiveItem={this.handleSelectActiveItem}
+      />
     );
   }
 }

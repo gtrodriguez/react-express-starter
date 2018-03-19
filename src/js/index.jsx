@@ -62,9 +62,18 @@ class App extends React.Component {
   }
 
   handleItemUpdate(itemId,item) {
-    const newItems = this.state.todoItems.find(item => item.id === itemId) = item;
+    const cloneState = JSON.parse(JSON.stringify(this.state));
+    const targetIndex = cloneState.todoItems.findIndex(item => item.id === itemId);
+
+    //update the item if it exists
+    if (targetIndex >= 0) {
+      cloneState.todoItems[targetIndex] = item;
+    } else {// or push the new item onto the list
+      cloneState.todoItems.push(item);
+    }
+
     this.setState({
-      todoItems: newItems
+      todoItems: cloneState.todoItems
     });
   }
 

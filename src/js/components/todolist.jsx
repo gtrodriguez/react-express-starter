@@ -26,8 +26,12 @@ class TodoList extends React.Component {
   }
 }
 
+TodoList.defaultProps = {
+  activeItemId: null,
+};
+
 TodoList.propTypes = {
-  activeItemId: PropTypes.string,
+  activeItemId: PropTypes.number,
   todoItems: PropTypes.arrayOf(PropTypes.object).isRequired,
   handleItemUpdate: PropTypes.func.isRequired,
   handleCancel: PropTypes.func.isRequired,

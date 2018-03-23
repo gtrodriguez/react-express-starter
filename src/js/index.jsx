@@ -43,37 +43,27 @@ class App extends React.Component {
     this.handleSelectActiveItem = this.handleSelectActiveItem.bind(this);
   }
 
-  componentWillMount() {
-    const that = this;
-    // get the real todo items
-  }
-
-  componentDidMount() {
-    //called after everything including sub-components have rendered
-  }
-
-  componentWillUnmount() {
-  }
-
   handleCreateFormStatus(isAddingNew) {
     this.setState({
-      isAddingNew: isAddingNew
+      isAddingNew: isAddingNew,
     });
   }
 
-  handleItemUpdate(itemId,item) {
+  handleItemUpdate(newItem) {
     const cloneState = JSON.parse(JSON.stringify(this.state));
-    const targetIndex = cloneState.todoItems.findIndex(item => item.id === itemId);
+    const targetIndex = cloneState.todoItems.findIndex(item => item.id === newItem.id);
 
     //update the item if it exists
     if (targetIndex >= 0) {
-      cloneState.todoItems[targetIndex] = item;
+      cloneState.todoItems[targetIndex] = newItem;
     } else {// or push the new item onto the list
       cloneState.todoItems.push(item);
     }
 
     this.setState({
-      todoItems: cloneState.todoItems
+      todoItems: cloneState.todoItems,
+      activeItemId: null,
+      isAddingNew: null,
     });
   }
 

@@ -1,17 +1,13 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Landing from './pages/landing';
-import Header from './components/header';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      activeItemId: null,
-      isAddingNew: false,
       todoItems: [{
         id: 1,
         listId: 1,
@@ -37,51 +33,12 @@ class App extends React.Component {
         lastUpdated: new Date().toString(),
       }],
     };
-
-    this.handleItemUpdate = this.handleItemUpdate.bind(this);
-    this.handleCreateFormStatus = this.handleCreateFormStatus.bind(this);
-    this.handleSelectActiveItem = this.handleSelectActiveItem.bind(this);
-  }
-
-  handleCreateFormStatus(isAddingNew) {
-    this.setState({
-      isAddingNew: isAddingNew,
-    });
-  }
-
-  handleItemUpdate(newItem) {
-    const cloneState = JSON.parse(JSON.stringify(this.state));
-    const targetIndex = cloneState.todoItems.findIndex(item => item.id === newItem.id);
-
-    //update the item if it exists
-    if (targetIndex >= 0) {
-      cloneState.todoItems[targetIndex] = newItem;
-    } else {// or push the new item onto the list
-      cloneState.todoItems.push(item);
-    }
-
-    this.setState({
-      todoItems: cloneState.todoItems,
-      activeItemId: null,
-      isAddingNew: null,
-    });
-  }
-
-  handleSelectActiveItem(activeItemId) {
-    this.setState({
-      activeItemId: activeItemId
-    });
   }
 
   render() {
     return (
       <Landing
-        activeItemId={this.state.activeItemId}
-        isAddingNew={this.state.isAddingNew}
         todoItems={this.state.todoItems}
-        handleCreateFormStatus={this.handleCreateFormStatus}
-        handleItemUpdate={this.handleItemUpdate}
-        handleSelectActiveItem={this.handleSelectActiveItem}
       />
     );
   }

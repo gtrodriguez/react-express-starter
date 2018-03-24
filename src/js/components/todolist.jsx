@@ -1,28 +1,30 @@
 import React from 'react';
-import PropTypes from 'prop-types'; 
+import PropTypes from 'prop-types';
 import { ListGroup } from 'react-bootstrap';
 
 import ToDoItem from './todoitem';
 
 class TodoList extends React.Component {
   render() {
+    const activeItemId = this.props.activeItemId;
     return (<ListGroup componentClass="ul">
       {
-        this.props.todoItems.map((item) => {
-          return <ToDoItem
-            id={item.id}
-            listId={item.listId}
-            title={item.title}
-            description={item.description}
-            isCompleted={item.isCompleted}
-            lastUpdated={item.lastUpdated}
-            isActive={item.id === this.props.activeItemId}
-            handleItemUpdate={this.props.handleItemUpdate}
-            handleCancel={this.props.handleCancel}
-            handleSelectActiveItem={this.props.handleSelectActiveItem}
-          />})
+        this.props.todoItems.map(item => (<ToDoItem
+          key={item.id}
+          id={item.id}
+          listId={item.listId}
+          title={item.title}
+          description={item.description}
+          isComplete={item.isComplete}
+          lastUpdated={item.lastUpdated}
+          activeItemId={activeItemId}
+          isActive={item.id === this.props.activeItemId}
+          handleItemUpdate={this.props.handleItemUpdate}
+          handleCancel={this.props.handleCancel}
+          handleSelectActiveItem={this.props.handleSelectActiveItem}
+        />))
       }
-      </ListGroup>);
+    </ListGroup>);
   }
 }
 

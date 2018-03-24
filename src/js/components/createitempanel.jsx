@@ -7,20 +7,28 @@ import ToDoItem from './todoitem';
 class CreateItemPanel extends React.Component {
   renderAddingContent() {
     return <ToDoItem
-          id={Math.floor(Math.random() * 1000000)}
+          id={this.props.activeItemId}
           listId={1}
-          isCompleted={false}
-          lastUpdated={new Date()}
+          isComplete={false}
+          lastUpdated={new Date().toString()}
           isActive={true}
           handleItemUpdate={this.props.handleItemUpdate}
-          handleCancel={(e) => {e.preventDefault(); this.props.handleCreateFormStatus(false);}}
+          handleCancel={(e) => {e.preventDefault();
+            this.props.handleCreateFormStatus(false);}}
       />;
   }
 
   renderButtonPanel() {
     return <div>
       <Button
-        onClick={(e) => {e.preventDefault(); this.props.handleCreateFormStatus(true);}}
+        onClick={(e) => {
+          e.preventDefault();
+          // prevent editing while another form is active
+          if (this.props.activeItemId != null) {
+            return;
+          }
+          this.props.handleCreateFormStatus(
+            true, Math.floor(Math.random() * 1000000));}}
       >
         Add New Item
       </Button>
@@ -37,8 +45,13 @@ class CreateItemPanel extends React.Component {
   }
 }
 
-CreateItemPanel.PropTypes = {
+CreateItemPanel.defaultProps = {
+  activeItemId: null,
+};
+
+CreateItemPanel.propTypes = {
   isAddingNew: PropTypes.bool.isRequired,
+  activeItemId: PropTypes.number,
   handleCreateFormStatus: PropTypes.func.isRequired,
   handleItemUpdate: PropTypes.func.isRequired,
 };

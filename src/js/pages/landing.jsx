@@ -1,20 +1,11 @@
 import React from 'react';
-import { Button, Grid, Row, Col } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Grid, Row, Col } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
-import Header from '../components/header';
 import TodoList from '../components/todolist';
 import CreateItemPanel from '../components/createitempanel';
 
 class Landing extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  componentDidMount() {
-  }
-
   render() {
     return (<div id="connectx-root" className="landing-page">
       <Grid id="game-container">
@@ -28,20 +19,24 @@ class Landing extends React.Component {
             <CreateItemPanel
               isAddingNew={this.props.isAddingNew}
               handleCreateFormStatus={this.props.handleCreateFormStatus}
+              handleItemUpdate={this.props.handleItemUpdate}
+              activeItemId={this.props.activeItemId}
             />
           </Col>
         </Row>
         <Row>
           <Col sm={12}>
-            <p>Let's get shit done!</p>
+            <p>Let&apos;s get shit done!</p>
             <hr />
             <div className="landing-content">
-              <TodoList 
-                activeItemId={this.props.activeItemId}
+              <TodoList
                 todoItems={this.props.todoItems}
+                activeItemId={this.props.activeItemId}
                 handleItemUpdate={this.props.handleItemUpdate}
                 handleSelectActiveItem={this.props.handleSelectActiveItem}
-                handleCancel={() => {this.props.handleCreateFormStatus(false); this.props.handleSelectActiveItem(null); }}
+                handleCancel={() => {
+                  this.props.handleSelectActiveItem(null);
+                }}
               />
             </div>
           </Col>
@@ -53,13 +48,13 @@ class Landing extends React.Component {
 }
 
 Landing.defaultProps = {
-  activeItemId: null,
   inviteGameId: '',
+  activeItemId: null,
 };
 
 Landing.propTypes = {
-  activeItemId: PropTypes.number,
   isAddingNew: PropTypes.bool.isRequired,
+  activeItemId: PropTypes.number,
   todoItems: PropTypes.arrayOf(PropTypes.object).isRequired,
   handleCreateFormStatus: PropTypes.func.isRequired,
   handleItemUpdate: PropTypes.func.isRequired,

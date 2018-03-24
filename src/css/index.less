@@ -1,110 +1,12 @@
-.game-board-container{
-	.player-label{
-		padding-right: 54px;
-	}
-
-	.current-player-label{
-		padding-right: 10px;
-	}
-
-	.player-1{
-		color: black;
-	}
-
-	.player-2{
-		color: red;
-	}
-
-	.interactive-tile, .game-board-tile{
-		height: 20px;
-		width: 20px;
-		padding: 3px 4px;
-	}
-
-	.game-board-tile{
-		border: 1px solid grey;
-		font-weight: bold;
-	  text-align: center;
-	  line-height: 12px;
-	}
-
-	.game-row, .interactive-row{
-		display: flex;
-	}
-
-	.interactive-row{
-		flex-direction: row;
-	}
-
-	.game-row{
-		display: flex;
-		flex-direction: row;
-	}
-
-	.interactive-tile{
-		border: 1px solid blue;
-		margin-bottom: 10px;
-		cursor: pointer;
-
-		&:hover{
-			border-color: magenta;
-		} 
-
-		.disabled{
-			border: 1px solid white;
-		}	
-	}
-
-	.game-over{
-		.interactive-tile{
-			border: 1px solid white;
-			cursor: default;
-			
-			&:hover{
-				border: 1px solid white;
-			} 
-		}
-	}
-
-	.game-board-grid{
-		border: 1px solid black;
-		display: flex;
-		flex-direction: column-reverse;
-		width: 162px;
-	}
-
-	.control-panel{
-		.start-warning {
-			padding-top: 8px;
-		}
-	}
-}
-
-.landing-page{
-	.login-form-element {
-		width: 200px;
-	}
-
-	.login-label{
-		width: 85px;
-	}
-
-	.control-panel{
-		padding: 10px 0 10px 0;
-	}
-}
-
-.game-list-page{
-	.list-group-item {
-    min-height: 62px;
-	}
-
-	#accept-btn {
-    right: 0;
-    position: absolute;
-	}
-}
 
 button[type="button"]{
 	margin: 5px 0;
+}
+
+.todo-item{
+	cursor: pointer;
+
+	&.complete{
+		cursor: default;
+	}
 }

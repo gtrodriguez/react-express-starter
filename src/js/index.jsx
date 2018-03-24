@@ -1,9 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Landing from './pages/landing';
-import Header from './components/header';
 
 class App extends React.Component {
   constructor(props) {
@@ -17,7 +15,7 @@ class App extends React.Component {
         listId: 1,
         title: 'Get Groceries',
         description: 'Get Milk\nGet Sugar\nGet Eggs\nGet Flour\n',
-        isCompleted: true,
+        isComplete: true,
         lastUpdated: new Date().toString(),
       },
       {
@@ -25,7 +23,7 @@ class App extends React.Component {
         listId: 1,
         title: 'Do taxes',
         description: 'Get Documents\nGo to H&R Block',
-        isCompleted: false,
+        isComplete: false,
         lastUpdated: new Date().toString(),
       },
       {
@@ -33,7 +31,7 @@ class App extends React.Component {
         listId: 1,
         title: 'Change oil',
         description: '',
-        isCompleted: false,
+        isComplete: false,
         lastUpdated: new Date().toString(),
       }],
     };
@@ -42,37 +40,34 @@ class App extends React.Component {
     this.handleCreateFormStatus = this.handleCreateFormStatus.bind(this);
     this.handleSelectActiveItem = this.handleSelectActiveItem.bind(this);
   }
-
-  handleCreateFormStatus(isAddingNew) {
+  handleCreateFormStatus(isAddingNew, activeItemId) {
     this.setState({
       isAddingNew: isAddingNew,
+      activeItemId: (isAddingNew ? activeItemId : null),
     });
   }
-
   handleItemUpdate(newItem) {
     const cloneState = JSON.parse(JSON.stringify(this.state));
     const targetIndex = cloneState.todoItems.findIndex(item => item.id === newItem.id);
 
-    //update the item if it exists
+    // update the item if it exists
     if (targetIndex >= 0) {
       cloneState.todoItems[targetIndex] = newItem;
-    } else {// or push the new item onto the list
-      cloneState.todoItems.push(item);
+    } else { // or push the new item onto the list
+      cloneState.todoItems.push(newItem);
     }
 
     this.setState({
       todoItems: cloneState.todoItems,
       activeItemId: null,
-      isAddingNew: null,
+      isAddingNew: false,
     });
   }
-
   handleSelectActiveItem(activeItemId) {
     this.setState({
-      activeItemId: activeItemId
+      activeItemId: activeItemId,
     });
   }
-
   render() {
     return (
       <Landing
